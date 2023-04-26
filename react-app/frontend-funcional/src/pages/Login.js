@@ -28,8 +28,8 @@ export default function Login() {
     }
   };
 
-  if (isLoggedIn) {
-    return <Navigate to="/dashboard" replace />;
+  if (isLoggedIn === true) {
+    return <Navigate to="/dashboard"/>;
   }
   
 

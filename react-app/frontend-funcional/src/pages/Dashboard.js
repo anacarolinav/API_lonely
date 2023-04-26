@@ -29,8 +29,6 @@ const Dashboard = () => {
         </div>
         <div>
           <ButtonGroup>
-            <StyledButton to="/login">Login</StyledButton>
-            <StyledButton to="/signup">Signup</StyledButton>
             <StyledButton to="/forms" onClick={() => setShowForms(true)}>Formulários</StyledButton>
           </ButtonGroup>
         </div>
