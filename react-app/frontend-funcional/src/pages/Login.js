@@ -14,7 +14,9 @@ export default function Login() {
   const handleLogin = async () => {
     try {
 
+      
       const response = await axios.post('http://localhost:3000/login', { username, password });
+      console.log(response)
       if (response.data.success) {
         console.log(response.data.message);// sucesso no login
         setIsLoggedIn(true);// faça algo para redirecionar o usuário para a página de sucesso do login
@@ -28,7 +30,7 @@ export default function Login() {
     }
   };
 
-  if (isLoggedIn === true) {
+  if (isLoggedIn) {
     return <Navigate to="/dashboard"/>;
   }
   
