@@ -13,7 +13,6 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-
       
       const response = await axios.post('http://localhost:3000/login', { username, password });
       console.log(response)

@@ -14,7 +14,7 @@ const signup = async (req) => {
             password
         });
 
-        // Salva o usuário no banco de dados
+        // saves the data in our database in mongo
         await User.create(newUser);
 
         // Login efetuado com sucesso
