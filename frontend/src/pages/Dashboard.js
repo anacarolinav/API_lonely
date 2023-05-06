@@ -25,6 +25,8 @@ function Dashboard () {
                 <StyledTitle size={65}>Welcome, User</StyledTitle>
                 <ButtonGroup>
                     <StyledButton to="/">Logout</StyledButton>
+                    <StyledButton to="/forms">Forms</StyledButton>
+
                 </ButtonGroup>
             </StyledFormArea>
         </div>

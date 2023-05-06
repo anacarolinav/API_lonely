@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect("mongodb://localhost:9000/CAIBE", { useNewUrlParser: true });
 
+
 app.get("/", (req,res)=>{
     res.sendFile(path.join(__dirname + '/index.html'));
 });
