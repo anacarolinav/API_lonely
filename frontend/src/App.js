@@ -4,6 +4,7 @@ import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Formu from "./pages/Forms";
+import Dict from "./pages/Dict";
 
 //Styled components
 import { StyledContainer } from "./components/Styles";
@@ -26,7 +27,9 @@ function App() {
           <Route path="/login" caseSensitive={false} element={<LoginPage />} />
           <Route path="/dashboard" caseSensitive={false} element={<Dashboard />} />
           <Route path="/forms" caseSensitive={false} element={<Formu />} />
+          <Route path="/dict" caseSensitive={false} element={<Dict />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
+          
         </Routes>
 
       </StyledContainer>
