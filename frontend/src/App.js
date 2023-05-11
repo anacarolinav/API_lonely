@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Formu from "./pages/Forms";
 import Dict from "./pages/Dict";
 
-import Excel from "./pages/readEXCEL";
+import Excel from "./pages/aiai";
 
 //Styled components
 import { StyledContainer } from "./components/Styles";
