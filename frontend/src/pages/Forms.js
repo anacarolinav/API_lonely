@@ -50,10 +50,18 @@ function Formu() {
         'items.0.5.items.0': 'NADMSCI1713' //IMC 
 
     };
-    
+
     let composition = {
         //ler o excel -ir buscar o value da tag que temos no mapping
         //ler o jdt.json - ir buscar TUDO do item
+
+        //key está no jdt
+        //value do dict está no excel mas temos de ir buscar o value da TAG
+
+        //agora eu quero fazer uma função composition que cria um dicionário em que a key 
+        //do dicionário é o item.0.0.items.0 que está no jdt e o value do dicionário está no 
+        //excel associado à TAG que está no mapping
+        
         "items.0.0.items.0.value": {
             "code": "at0014",
             "id": "22001350",

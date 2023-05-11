@@ -47,33 +47,40 @@ function AiAi() {
 
     };
 
+    const [valoresJson, setValoresJson] = useState({});
+
+
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onload = () => {
             const buffer = reader.result;
             const workbook = xlsx.read(buffer, { type: 'buffer' });
+
+
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
             const myObject = xlsx.utils.sheet_to_json(worksheet);
             const valores_json = myObject[1];
             console.log(valores_json);
+            setValoresJson(valores_json);
         };
         reader.readAsArrayBuffer(file);
     };
 
 
 
-    const receber_json = valores_json;
-
-
-
 
     const extrairValores = (objeto, mapeamento) => {
         const resultado = {};
+
+        // percorrer o mapeamento
         for (const chave in mapeamento) {
             if (typeof mapeamento[chave] === 'string') {
                 const caminho = mapeamento[chave].split('.');
                 let valor = objeto;
+
+                //percorrer o caminho ate a chave final
                 for (const parte of caminho) {
                     if (valor && typeof valor === 'object') {
                         valor = valor[parte];
@@ -97,6 +104,7 @@ function AiAi() {
                                 break;
                             }
                         }
+
                         resultado[chave] = resultado[chave] || [];
                         resultado[chave].push(valor);
                     }
@@ -110,31 +118,40 @@ function AiAi() {
 
 
 
-    const output = extrairValores(receber_json, mapping);
+    const output = extrairValores(valoresJson, mapping);
+    
 
+    const outputElements = [];
+    for (const key in output) {
+        outputElements.push(
+            <tr key={key}>
+                <td>{key}</td>
+                <td>{output[key]}</td>
+            </tr>
+        );
+    }
 
     return (
         <div>
-
             <input
                 type="file"
-                onChange={(e) => {
-                    const file = e.target.files[0];
-                    handleFileChange(file);
-
-                }}
+                onChange={(event) => handleFileChange(event)}
             />
-
-            <table class="table container">
-                <tbody>
+            <table>
+                <thead>
                     <tr>
-                        <td>{output}</td>
+                        <th>Key</th>
+                        <th>Value</th>
                     </tr>
+                </thead>
+                <tbody>
+                    {outputElements}
                 </tbody>
             </table>
-
         </div>
     );
+
+
 }
 
 export default AiAi;

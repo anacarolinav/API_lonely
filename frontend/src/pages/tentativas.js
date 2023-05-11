@@ -1,5 +1,4 @@
 
-
 const xlsx = require('xlsx');
 
 // Lê o arquivo Excel
@@ -12,7 +11,7 @@ const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 // Converte a planilha em objeto JSON
 const myObject = xlsx.utils.sheet_to_json(worksheet);
 const valores_json = myObject[1];
-console.log(myObject);
+//console.log(myObject);
 
 
 
@@ -67,13 +66,18 @@ function extrairValores(objeto, mapeamento) {
 
     // percorrer o mapeamento
     for (const chave in mapeamento) {
+        //console.log(typeof (mapeamento[chave]) + mapeamento[chave]);
         if (typeof (mapeamento[chave]) === 'string') {
             const caminho = mapeamento[chave].split('.');
             let valor = objeto;
 
+
+
             // percorrer o caminho até a chave final
             for (const parte of caminho) {
                 if (valor && typeof valor === 'object') {
+
+
                     valor = valor[parte];
                 } else {
                     valor = undefined;
@@ -82,16 +86,24 @@ function extrairValores(objeto, mapeamento) {
             }
 
             resultado[chave] = valor;
+    
+
         } else if (Array.isArray(mapeamento[chave])) {
-            console.log("Array");
+            //console.log("Array");
             const caminhos = mapeamento[chave];
             for (const caminho of caminhos) {
                 if (typeof (caminho) === 'string') {
                     const partes = caminho.split('.');
                     let valor = objeto;
+
+
+
                     for (const parte of partes) {
                         if (valor && typeof valor === 'object') {
+        
+                            
                             valor = valor[parte];
+
                         } else {
                             valor = undefined;
                             break;
@@ -99,8 +111,13 @@ function extrairValores(objeto, mapeamento) {
                     }
 
                     resultado[chave] = resultado[chave] || [];
-                    resultado[chave].push(valor);
+                    if (typeof valor === 'object') {
+                        resultado[chave].push({ valor: true, posicao: posicao });
+                    } else {
+                        resultado[chave].push(valor);
+                    }
                 }
+                
             }
         }
     }
@@ -109,7 +126,7 @@ function extrairValores(objeto, mapeamento) {
 }
 
 const valores = extrairValores(valores_json, mapping);
-console.log(valores);
+//console.log(valores);
 
 /*
 {
