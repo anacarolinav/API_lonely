@@ -6,6 +6,8 @@ import Dashboard from "./pages/Dashboard";
 import Formu from "./pages/Forms";
 import Dict from "./pages/Dict";
 
+import Excel from "./pages/readEXCEL";
+
 //Styled components
 import { StyledContainer } from "./components/Styles";
 
@@ -29,6 +31,8 @@ function App() {
           <Route path="/forms" caseSensitive={false} element={<Formu />} />
           <Route path="/dict" caseSensitive={false} element={<Dict />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
+
+          <Route path="/readexcel" caseSensitive={false} element={<Excel />} />
           
         </Routes>
 

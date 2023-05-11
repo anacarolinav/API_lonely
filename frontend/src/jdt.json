@@ -115,7 +115,7 @@
                 "All"
               ],
               "dataType": "DV_CODED_TEXT",
-              "itemName": "3º Motivo de internamento",
+              "itemName": "1º Motivo de internamento",
               "itemPath": "items.0.0.items.2",
               "itemsList": [
                 {
@@ -482,7 +482,7 @@
               "node": {
                 "code": "at0008",
                 "description": "The reason why the individual was admitted for an episode of care.",
-                "text": "3º Motivo de internamento"
+                "text": "1º Motivo de internamento"
               },
               "occurrences": {
                 "lowerOccurrences": 0,
@@ -509,7 +509,7 @@
                 "All"
               ],
               "dataType": "DV_CODED_TEXT",
-              "itemName": "3º Motivo de internamento",
+              "itemName": "2º Motivo de internamento",
               "itemPath": "items.0.0.items.3",
               "itemsList": [
                 {
@@ -876,7 +876,7 @@
               "node": {
                 "code": "at0008",
                 "description": "The reason why the individual was admitted for an episode of care.",
-                "text": "3º Motivo de internamento"
+                "text": "2º Motivo de internamento"
               },
               "occurrences": {
                 "lowerOccurrences": 0,
@@ -1411,31 +1411,31 @@
                   "itemPath": "items.0.0.items.7.items.0",
                   "itemsList": [
                     {
-                      "code": "local_terms::SU PP",
+                      "code": "NADMSCI1",
                       "text": "SU PP"
                     },
                     {
-                      "code": "local_terms::SCI",
+                      "code": "NADMSCI6",
                       "text": "SCI"
                     },
                     {
-                      "code": "local_terms::APR",
+                      "code": "NADMSCI2",
                       "text": "APR"
                     },
                     {
-                      "code": "local_terms::CE",
+                      "code": "NADMSCI3",
                       "text": "Consulta externa"
                     },
                     {
-                      "code": "local_terms::CS",
+                      "code": "NADMSCI4",
                       "text": "Centro de Saúde"
                     },
                     {
-                      "code": "local_terms::OH",
+                      "code": "NADMSCI9",
                       "text": "Outro Hospital"
                     },
                     {
-                      "code": "local_terms::OS",
+                      "code": "NADMSCI10",
                       "text": "Outra situação"
                     }
                   ],

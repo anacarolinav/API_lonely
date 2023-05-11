@@ -5,7 +5,15 @@ import Logo from '../assets/logo.png';
 
 const Dict = () => {
 
-    const meuDicionario = {
+    const mapping = {
+        //EXCEL-FORM usamos as tags mas nao temos a cereteza para mapear ---ESTA OTIMO
+
+        //A divisão do excel é à la para como esta no exemplo que fizemos? --SIM mas nao fazer já, experimentar para 1 episodio e se correr bem dps fazer para os outros exceis
+
+        //Como inserir os values do excel aqui no forms pq agr está a correspondencia para a tag e não com o value (correspondencia)
+        //os valores do excel aqui(?)
+        //Resposta - na composition que está no ficheiro FORMs.js
+
         'items.0.0.items.0': 'EPISODIO',
         'items.0.0.items.1': 'DATACRIACAO',
         'items.0.0.items.2': 'SINDR01',//1ºmotivo de internamento
@@ -13,20 +21,42 @@ const Dict = () => {
         'items.0.0.items.4': 'SINDR03',//3ºmotivo de internamento
         'items.0.0.items.5': 'NADMSCI11',//internamento
         'items.0.0.items.6': 'NADMSCI12',//reinternamento
+
+
         //Proveniencia
-        'items.0.0.items.7.items.0':'Nome',
+        //PROBLEMA: pq no excel temos um aTAG individual para cada um opção e no formulario isso não acontece
+        //Solução ja implementada: associar 1 field do form a um Array das tags
+        //Depois fazemos um mapeamento dentro deste array que só apanha os True (o que tem todos falso vai ficar em branco esta tudo certo)
+        //O nome para nao ficar sempre True que seria o value, no jdt.json alterou-se o code das opções para a Tag, assim o text que aparecer daquele code é APR, SCI,SCU PP, e assim adiante
+        'items.0.0.items.7.items.0': ['NADMSCI1',
+            'NADMSCI6',
+            'NADMSCI2',
+            'NADMSCI3',
+            'NADMSCI4',
+            'NADMSCI9',
+            'NADMSCI10'],
         'items.0.0.items.7.items.1':'Comentários',
+
+
+
         //Infeção
+        //CONFIRMAR ESTES COMENTARIOSSS fora e dentro - não há stress, ficam em branco
         'items.0.0.items.8.items.0': 'INFECADM20', //comentarios dentro
         'items.0.0.items.8.items.1': 'INFECADM10',//'Infeção aguda à admissão',
         'items.0.0.items.8.items.2': 'INFECADM30',//'Local da infeção'
         'items.0.0.items.9':'SINDROBS01', //comentarios fora
+
+
+
         //Historia Atual
-        'items.0.1.items.0':'Título',//INUTIL nao existe
+        'items.0.1.items.0':'Título',//INUTIL nao existe --Nao ha stress fica em branco
         'items.0.1.items.1':'NADMSCI137',//historia da doença atual
+
+
+
         //Vital Signs
-        'items.0.2.items.0.items.0':'NADMSCI17', //temperatura
-        'items.0.2.items.1.items.0':'NADMSCI171', //rate
+        'items.0.2.items.0.items.0':'NADMSCI17',//temperatura
+        'items.0.2.items.1.items.0':'NADMSCI171',//rate
         'items.0.2.items.2.items.0':'NADMSCI172',//diastolic = TA
         'items.0.2.items.2.items.1': 'NADMSCI173',//sistolic é o da barra
         
@@ -36,20 +66,17 @@ const Dict = () => {
         
         'items.0.3.items.0':'NADMSCI179',//peso
         'items.0.4.items.0':'NADMSCI1711', //altura
-        'items.0.5.items.0':'NADMSCI1713' //IMC
+        'items.0.5.items.0':'NADMSCI1713' //IMC - SEMPRE VAMOS TER DE MUDAR AS GRANDEZAS??????? - Solução = fazer uma funçãozinha para fazer isto quando do mapeamento entre form e excel
 
-        //ignoramos os p que nao estao no forms: p, P
+        //ignoramos os p que nao estao no forms: p, P -- sim mt bem
 
     };
-
-    console.log(meuDicionario['chave1']); // valor1
-    console.log(meuDicionario.chave2); // valor2
 
     
 
     return (
         <div>
-            <pre>{JSON.stringify(meuDicionario, null, 2)}</pre>
+            <pre>{JSON.stringify(mapping, null, 2)}</pre>
             <div
                 style={{
                     position: "absolute",
