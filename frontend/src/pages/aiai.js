@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import * as xlsx from 'xlsx';
 
+import JDT from '../jdt.json';
+
 
 function AiAi() {
-    console.log('ola estou aqui')
+
     const mapping = {
 
         'items.0.0.items.0': 'EPISODIO',
@@ -44,11 +46,14 @@ function AiAi() {
 
         'items.0.3.items.0': 'NADMSCI179',//peso
         'items.0.4.items.0': 'NADMSCI1711', //altura
-        'items.0.5.items.0': 'NADMSCI1713' //IMC 
+        'items.0.5.items.0': 'NADMSCI1713', //IMC 
+
+        'items.0.6.items.0': 'NADMSCI1715' //Perimetro da cabeça
 
     };
 
     const [valoresJson, setValoresJson] = useState({});
+    const [composition, setComposition] = useState({});
 
 
     function converterDataSerialParaDataHora(dataSerial, tipo) {
@@ -71,6 +76,10 @@ function AiAi() {
         }
     }
 
+
+
+
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -82,8 +91,15 @@ function AiAi() {
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
             const myObject = xlsx.utils.sheet_to_json(worksheet);
             const valores_json = myObject[1];
-            console.log(converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'data'));
-            console.log(converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'hora'));
+
+
+            let variavel_true;
+            for (let key in valores_json) {  
+                console.log(key + ' : ' + valores_json[key]);          
+                if (valores_json[key] === "True") {
+                    variavel_true = key;
+                }
+            }
 
 
             let composition = {
@@ -92,22 +108,87 @@ function AiAi() {
                 "items.0.0.items.1.date": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'data'),
                 "items.0.0.items.1.time": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'hora'),
 
-                //Aqui tenho de ler o JDT.json e ir buscar o que tem text valores_json["SINDR01"]
-                //"items.0.0.items.2": { "code":, "text": valores_json["SINDR01"] },
 
-                //"items.0.0.items.3": {"code":,"text":valores_json["SINDR02"]},
-                //"items.0.0.items.4": {"code":,"text":valores_json["SINDR03"]},
-                //"items.0.0.items.5": {"code":,"text":valores_json["NADMSCI11"]},
+                "items.0.0.items.2.value": { "code": JDT.items[0][0].items[2].itemsList.find(item => item.text === valores_json["SINDR01"]).code, "text": valores_json["SINDR01"] },
+
+                "items.0.0.items.3.value": { "code": JDT.items[0][0].items[3].itemsList.find(item => item.text === valores_json["SINDR02"]).code, "text": valores_json["SINDR02"] },
+                "items.0.0.items.4.value": { "code": JDT.items[0][0].items[4].itemsList.find(item => item.text === valores_json["SINDR03"]).code, "text": valores_json["SINDR03"] },
+                "items.0.0.items.5.value": { "code": JDT.items[0][0].items[5].itemsList.find(item => item.text === valores_json["NADMSCI11"]).code, "text": valores_json["NADMSCI11"] },
+                "items.0.0.items.6.value": { "code": JDT.items[0][0].items[6].itemsList.find(item => item.text === valores_json["NADMSCI12"]).code, "text": valores_json["NADMSCI12"] },
+
+                "items.0.0.items.7.items.0.value": {
+                    "code": variavel_true,
+                    "text": JDT.items[0][0].items[7].items[0].itemsList.find(item => item.code === variavel_true).text
+                },
+
+                "items.0.0.items.7.items.1.value": null,
+                "items.0.0.items.8.items.0.value": null,
+
+                "items.0.0.items.8.items.1.value": {
+                    "code": JDT.items[0][0].items[8].items[1].itemsList.find(item => item.text === valores_json["INFECADM10"]).code,
+                    "text": valores_json["INFECADM10"]
+                },
+
+                "items.0.0.items.8.items.2.value": {
+                    "code": "at0003",
+                    "text": valores_json["INFECADM30"],
+                },
+                "items.0.0.items.9.value": null,
+                "items.0.1.items.0.value": null,
+
+                "items.0.1.items.1.value": [
+                    {
+                        "code": "at0004",
+                        "text": valores_json["NADMSCI137"],
+                    }
+                ],
+
+                "items.0.2.items.0.items.0.value.unit": "Cel",
+                "items.0.2.items.0.items.0.value.value": valores_json["NADMSCI17"],
+
+                "items.0.2.items.1.items.0.value.unit": "/min",
+                "items.0.2.items.1.items.0.value.value": valores_json["NADMSCI171"],
+
+                "items.0.2.items.2.items.0.value.unit": "mm[Hg]",
+                "items.0.2.items.2.items.0.value.value": valores_json["NADMSCI172"],
+
+                "items.0.2.items.2.items.1.value.unit": "mm[Hg]",
+                "items.0.2.items.2.items.1.value.value": valores_json["NADMSCI173"],
+
+                "items.0.2.items.3.items.0.value.unit": "/min",
+                "items.0.2.items.3.items.0.value.value": valores_json["NADMSCI176"],
+
+                "items.0.2.items.4.items.0.value": valores_json["NADMSCI177"],
+                "items.0.2.items.4.items.1.value": valores_json["NADMSCI178"],
+
+                "items.0.3.items.0.value.unit": "kg",
+                "items.0.3.items.0.value.value": valores_json["NADMSCI179"],
+                "items.0.4.items.0.value.unit": "cm",
+                "items.0.4.items.0.value.value": valores_json["NADMSCI1711"],
+                "items.0.5.items.0.value.unit": "kg/m2",
+                "items.0.5.items.0.value.value": valores_json["NADMSCI1713"],
+
+                "items.0.6.items.0.value.unit": "cm",
+                "items.0.6.items.0.value.value": valores_json["NADMSCI1715"],
+
             }
             console.log(composition);
             setValoresJson(valores_json);
+            setComposition(composition);
         };
         reader.readAsArrayBuffer(file);
+
+        return (
+            <div>
+                <input type="file" onChange={handleFileChange} />
+            </div>
+        );
+
     };
 
 
 
-
+    
     const extrairValores = (objeto, mapeamento) => {
         const resultado = {};
 
@@ -164,6 +245,7 @@ function AiAi() {
             <tr key={key}>
                 <td>{key}</td>
                 <td>{output[key]}</td>
+                
             </tr>
         );
     }

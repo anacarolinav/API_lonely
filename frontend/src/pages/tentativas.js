@@ -1,3 +1,5 @@
+//import JDT from '../jdt.json';
+
 
 const xlsx = require('xlsx');
 
@@ -11,7 +13,7 @@ const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 // Converte a planilha em objeto JSON
 const myObject = xlsx.utils.sheet_to_json(worksheet);
 const valores_json = myObject[1];
-//console.log(myObject);
+console.log(myObject);
 
 
 
@@ -126,7 +128,7 @@ function extrairValores(objeto, mapeamento) {
 }
 
 const valores = extrairValores(valores_json, mapping);
-console.log(valores);
+//console.log(valores);
 
 /*
 {
@@ -137,3 +139,4 @@ console.log(valores);
   'items.0.0.items.4': '- escolha -',
 }
 */
+
