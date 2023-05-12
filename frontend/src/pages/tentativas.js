@@ -126,7 +126,7 @@ function extrairValores(objeto, mapeamento) {
 }
 
 const valores = extrairValores(valores_json, mapping);
-//console.log(valores);
+console.log(valores);
 
 /*
 {

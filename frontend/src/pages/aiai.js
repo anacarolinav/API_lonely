@@ -3,6 +3,7 @@ import * as xlsx from 'xlsx';
 
 
 function AiAi() {
+    console.log('ola estou aqui')
     const mapping = {
 
         'items.0.0.items.0': 'EPISODIO',
@@ -50,6 +51,25 @@ function AiAi() {
     const [valoresJson, setValoresJson] = useState({});
 
 
+    function converterDataSerialParaDataHora(dataSerial, tipo) {
+        // Crie um objeto Date a partir da data serial
+        var data = new Date((dataSerial - 25569) * 86400 * 1000);
+
+        // Formate a data e hora
+        var dataFormatada = data.toISOString().replace('T', ' ').slice(0, 19);
+
+        // Verifique o tipo solicitado
+        if (tipo === 'data') {
+            // Se for solicitado apenas a data, retorne a parte da data formatada
+            return dataFormatada.slice(0, 10);
+        } else if (tipo === 'hora') {
+            // Se for solicitado apenas a hora, retorne a parte da hora formatada
+            return dataFormatada.slice(11);
+        } else {
+            // Se nenhum tipo for solicitado ou o tipo for inválido, retorne a data formatada completa
+            return dataFormatada;
+        }
+    }
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -62,7 +82,26 @@ function AiAi() {
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
             const myObject = xlsx.utils.sheet_to_json(worksheet);
             const valores_json = myObject[1];
-            console.log(valores_json);
+            console.log(converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'data'));
+            console.log(converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'hora'));
+
+
+            let composition = {
+                "items.0.0.items.O.value": { "code": "at0014", "id": valores_json["EPISODIO"], "type": "local" },
+
+                "items.0.0.items.1.date": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'data'),
+                "items.0.0.items.1.time": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'hora'),
+
+                //Aqui tenho de ler o JDT.json e ir buscar o que tem text valores_json["SINDR01"]
+                //"items.0.0.items.2": { "code":, "text": valores_json["SINDR01"] },
+
+
+                //"items.0.0.items.3": {"code":,"text":valores_json["SINDR02"]},
+                //"items.0.0.items.4": {"code":,"text":valores_json["SINDR03"]},
+
+                //"items.0.0.items.5": {"code":,"text":valores_json["NADMSCI11"]},
+            }
+            console.log(composition);
             setValoresJson(valores_json);
         };
         reader.readAsArrayBuffer(file);
@@ -119,7 +158,7 @@ function AiAi() {
 
 
     const output = extrairValores(valoresJson, mapping);
-    
+
 
     const outputElements = [];
     for (const key in output) {
