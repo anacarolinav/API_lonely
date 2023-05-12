@@ -4,7 +4,7 @@ import * as xlsx from 'xlsx';
 import JDT from '../jdt.json';
 
 
-function AiAi() {
+function Mapeamento() {
 
     const mapping = {
 
@@ -95,7 +95,7 @@ function AiAi() {
 
             let variavel_true;
             for (let key in valores_json) {
-                
+
                 if (valores_json[key] === "True") {
                     variavel_true = key;
                 }
@@ -180,87 +180,39 @@ function AiAi() {
 
     };
 
-
-
-
-    const extrairValores = (objeto, mapeamento) => {
-        const resultado = {};
-
-        // percorrer o mapeamento
-        for (const chave in mapeamento) {
-            if (typeof mapeamento[chave] === 'string') {
-                const caminho = mapeamento[chave].split('.');
-                let valor = objeto;
-
-                //percorrer o caminho ate a chave final
-                for (const parte of caminho) {
-                    if (valor && typeof valor === 'object') {
-                        valor = valor[parte];
-                    } else {
-                        valor = undefined;
-                        break;
-                    }
-                }
-                resultado[chave] = valor;
-            } else if (Array.isArray(mapeamento[chave])) {
-                const caminhos = mapeamento[chave];
-                for (const caminho of caminhos) {
-                    if (typeof caminho === 'string') {
-                        const partes = caminho.split('.');
-                        let valor = objeto;
-                        for (const parte of partes) {
-                            if (valor && typeof valor === 'object') {
-                                valor = valor[parte];
-                            } else {
-                                valor = undefined;
-                                break;
-                            }
-                        }
-
-                        resultado[chave] = resultado[chave] || [];
-                        resultado[chave].push(valor);
-                    }
-                }
-            }
-        }
-        return resultado;
-    };
-
-
-
-
-
-    const output = extrairValores(valoresJson, mapping);
-    
-
-    const outputElements = [];
-    for (const key in output) {
-        outputElements.push(
-            <tr key={key}>
-                <td>{key}</td>
-                <td>{output[key]}</td>
-
-            </tr>
-        );
-    }
-
     return (
         <div>
-            <input
-                type="file"
-                onChange={(event) => handleFileChange(event)}
-            />
-            
-
+            <input type="file" onChange={handleFileChange} />
             <table>
                 <thead>
                     <tr>
-                        <th>Key</th>
-                        <th>Value</th>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {outputElements}
+                    {composition && composition.elements && (
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {composition.elements.map((element) => (
+                                    <tr key={element.code}>
+                                        <td>{element.text}</td>
+                                        <td>{element.id}</td>
+                                        
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+
                 </tbody>
             </table>
         </div>
@@ -269,4 +221,6 @@ function AiAi() {
 
 }
 
-export default AiAi;
+
+
+export default Mapeamento;
