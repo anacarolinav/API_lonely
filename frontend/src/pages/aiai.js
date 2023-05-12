@@ -95,10 +95,8 @@ function AiAi() {
                 //Aqui tenho de ler o JDT.json e ir buscar o que tem text valores_json["SINDR01"]
                 //"items.0.0.items.2": { "code":, "text": valores_json["SINDR01"] },
 
-
                 //"items.0.0.items.3": {"code":,"text":valores_json["SINDR02"]},
                 //"items.0.0.items.4": {"code":,"text":valores_json["SINDR03"]},
-
                 //"items.0.0.items.5": {"code":,"text":valores_json["NADMSCI11"]},
             }
             console.log(composition);
