@@ -8,6 +8,8 @@ import Dict from "./pages/Dict";
 
 import Excel from "./pages/map";
 
+import AiAi from "./pages/aiai";
+
 //Styled components
 import { StyledContainer } from "./components/Styles";
 
@@ -33,6 +35,7 @@ function App() {
           <Route path="/" caseSensitive={false} element={<Home />} />
 
           <Route path="/readexcel" caseSensitive={false} element={<Excel />} />
+          <Route path="/aiai" caseSensitive={false} element={<AiAi />} />
           
         </Routes>
 
