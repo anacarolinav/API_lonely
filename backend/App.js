@@ -62,18 +62,19 @@ app.post('/signup', (req, res) => {
 
 app.use(express.json());
 const Compositions = mongoose.model('Compositions', new mongoose.Schema({
-patient_id: Number,
-testkey1 : String,
-testkey2 : Number,
+episode_id: String,
+Data : String,
+Hora : String,
+
 }), 'Compositions');
 
 app.post('/savejson', (req, res) => {
   const json = req.body
   console.log(json)
   const newComposition = new Compositions({
-    patient_id: json.patient_id,
-    testkey1: json.testkey1,
-    testkey2: json.testkey2
+    episode_id: json.episode_id,
+    Data: json.Data,
+    Hora: json.Hora
   });
   newComposition.save()
     .then(() => {
@@ -87,8 +88,8 @@ app.post('/savejson', (req, res) => {
 })
 
 app.get('/getcomposition', (req, res) =>{
-  const patientId = req.query.patient_id;
-  Compositions.findOne({ patient_id: patientId })
+  const episode_id = req.query.episode_id;
+  Compositions.findOne({ episode_id: episode_id })
     .then((composition) => {
       if (composition) {
         console.log('Composition found:', composition);

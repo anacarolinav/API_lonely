@@ -1,7 +1,11 @@
+import { StyledButton, ButtonGroup} from "../components/Styles";
+
+
 import React, { useState } from 'react';
 import * as xlsx from 'xlsx';
 
 import JDT from '../jdt.json';
+import axios from 'axios';
 
 
 function Mapeamento() {
@@ -127,6 +131,11 @@ function Mapeamento() {
             console.log(composition);
             setValoresJson(valores_json);
             setComposition(composition);
+
+
+            
+
+
         };
         reader.readAsArrayBuffer(file);
 
@@ -168,6 +177,9 @@ function Mapeamento() {
             <table>
                 <tbody>{outputElements}</tbody>
             </table>
+            <ButtonGroup>
+                <StyledButton to="/savejson">Save Json</StyledButton>
+            </ButtonGroup>
         </div>
     );
 
