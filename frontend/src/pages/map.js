@@ -133,7 +133,13 @@ function Mapeamento() {
             setComposition(composition);
 
 
-            
+            axios.post('/savejson', composition)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
 
 
         };
@@ -177,9 +183,7 @@ function Mapeamento() {
             <table>
                 <tbody>{outputElements}</tbody>
             </table>
-            <ButtonGroup>
-                <StyledButton to="/savejson">Save Json</StyledButton>
-            </ButtonGroup>
+            
         </div>
     );
 

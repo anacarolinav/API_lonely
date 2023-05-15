@@ -27,6 +27,7 @@ function Dashboard () {
                     <StyledButton to="/">Logout</StyledButton>
                     <StyledButton to="/forms">Forms</StyledButton>
                     <StyledButton to="/readExcel">Composition</StyledButton>
+                    <StyledButton to="/getcomposition">SEE Composition</StyledButton>
                 </ButtonGroup>
             </StyledFormArea>
         </div>

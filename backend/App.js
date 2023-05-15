@@ -63,8 +63,7 @@ app.post('/signup', (req, res) => {
 app.use(express.json());
 const Compositions = mongoose.model('Compositions', new mongoose.Schema({
 episode_id: String,
-Data : String,
-Hora : String,
+items: Object
 
 }), 'Compositions');
 
@@ -72,9 +71,9 @@ app.post('/savejson', (req, res) => {
   const json = req.body
   console.log(json)
   const newComposition = new Compositions({
-    episode_id: json.episode_id,
-    Data: json.Data,
-    Hora: json.Hora
+    episode_id: json.ObjectId,
+    items: json
+
   });
   newComposition.save()
     .then(() => {
