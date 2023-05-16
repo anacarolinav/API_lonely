@@ -68,10 +68,9 @@ items: Object
 }), 'Compositions');
 
 app.post('/savejson', (req, res) => {
-  const json = req.body
-  console.log(json)
+  const json = req.body;
+  console.log(json);
   const newComposition = new Compositions({
-    episode_id: json.ObjectId,
     items: json
 
   });
@@ -87,8 +86,9 @@ app.post('/savejson', (req, res) => {
 })
 
 app.get('/getcomposition', (req, res) =>{
-  const episode_id = req.query.episode_id;
-  Compositions.findOne({ episode_id: episode_id })
+  const episode_id = req.params.episode_id;
+  console.log('OLA', episode_id);
+  Compositions.findOne({ _id: episode_id })
     .then((composition) => {
       if (composition) {
         console.log('Composition found:', composition);
