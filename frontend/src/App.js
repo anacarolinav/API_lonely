@@ -36,7 +36,7 @@ function App() {
           <Route path="/" caseSensitive={false} element={<Home />} />
 
           <Route path="/readExcel" caseSensitive={false} element={<Mapeamento />} />
-          <Route path="/composition" caseSensitive={false} element={<GetComposition />} />
+          <Route path="/findjson" caseSensitive={false} element={<GetComposition />} />
           
         </Routes>
 

@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const Composition = () => {
-  const [episodeId, setEpisodeId] = useState('');
-  const [composition, setComposition] = useState(null);
+  const [id, setId] = useState('');
+  const [composition, setComposition] = useState('');
+  const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
-    setEpisodeId(event.target.value);
+    setId(event.target.value);
   };
 
   const fetchComposition = async () => {
     try {
-      const response = await axios.get('/getcomposition', {
-        params: {
-          episode_id: episodeId
-        }
-      });
+      const response = await axios.get(`/findjson/${id}`);
       const compositionData = response.data;
       setComposition(compositionData);
+      setError(null);
     } catch (error) {
-      console.error('Error:', error);
+      setComposition('');
+      setError('Error: ' + error.message);
     }
   };
 
@@ -34,11 +33,13 @@ const Composition = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Episode ID:
-          <input type="text" value={episodeId} onChange={handleInputChange} />
+          <input type="text" value={id} onChange={handleInputChange} />
         </label>
         <button type="submit">Fetch Composition</button>
       </form>
-      {composition ? (
+      {error ? (
+        <p>{error}</p>
+      ) : composition ? (
         <pre>{JSON.stringify(composition, null, 2)}</pre>
       ) : (
         <p>No composition fetched yet.</p>
@@ -48,4 +49,7 @@ const Composition = () => {
 };
 
 export default Composition;
+
+
+
 
