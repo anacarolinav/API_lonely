@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Formu from "./pages/Forms";
 
 
-import Mapeamento from "./pages/Map";
+import Mapeamento from "./pages/Mapeamento";
 import GetComposition from "./pages/Getcompos";
 
 
