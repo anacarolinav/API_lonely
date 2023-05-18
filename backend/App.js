@@ -67,6 +67,7 @@ const Compositions = mongoose.model('Compositions', new mongoose.Schema({
 
 }), 'Compositions');
 
+//res.send('JSON saved to database');
 
 app.post('/savejson', (req, res) => {
   const json = req.body;
@@ -79,7 +80,6 @@ app.post('/savejson', (req, res) => {
   newComposition.save()
     .then(() => {
       console.log('Composition saved:', newComposition);
-      res.send('JSON saved to database');
     })
     .catch(error => {
       console.log('Error: ', error);

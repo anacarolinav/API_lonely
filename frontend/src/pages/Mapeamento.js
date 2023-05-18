@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as xlsx from 'xlsx';
 
 import JDT from '../jdt.json';
@@ -6,9 +6,6 @@ import axios from 'axios';
 
 
 function Mapeamento() {
-
-
-
     const [valoresJson, setValoresJson] = useState({});
     const [composition, setComposition] = useState({});
 
@@ -32,6 +29,8 @@ function Mapeamento() {
             return dataFormatada;
         }
     }
+
+
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -125,7 +124,7 @@ function Mapeamento() {
                 "items.0.6.items.0.value.value": valores_json["NADMSCI1715"],
 
             }
-            console.log(composition);
+            //console.log(composition);
             setValoresJson(valores_json);
             setComposition(composition);
 
@@ -137,8 +136,6 @@ function Mapeamento() {
                 .catch(error => {
                     console.log(error);
                 });
-
-
         };
         reader.readAsArrayBuffer(file);
 
@@ -146,41 +143,15 @@ function Mapeamento() {
 
     const outputElements = [];
 
-    const renderValue = (value) => {
-        if (typeof value === "object" && value !== null) {
-            // If the value is an object, recursively call the loop on that object
-            const nestedElements = [];
-            for (const key in value) {
-                nestedElements.push(
-                    <tr key={key}>
-                        <td>{key}</td>
-                        <td>{renderValue(value[key])}</td>
-                    </tr>
-                );
-            }
-            return <table>{nestedElements}</table>;
-        } else {
-            // If the value is not an object, simply return it
-            return value;
+    useEffect(() => {
+        if (Object.keys(composition).length > 0) {
+            window.location.href = '/forms';
         }
-    };
-
-    for (const key in composition) {
-        outputElements.push(
-            <tr key={key}>
-                <td>{key}</td>
-                <td>{renderValue(composition[key])}</td>
-            </tr>
-        );
-    }
+    }, [composition]);
 
     return (
         <div>
             <input type="file" onChange={(event) => handleFileChange(event)} />
-            <table>
-                <tbody>{outputElements}</tbody>
-            </table>
-            
         </div>
     );
 
