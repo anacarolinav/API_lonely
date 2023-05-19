@@ -47,9 +47,9 @@ export const StyledSubTitle = styled.p`
 `;
 
 export const Avatar = styled.div`
-    width: 85px;
-    height: 85px;
-    border-radius: 5px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50px;
     background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;

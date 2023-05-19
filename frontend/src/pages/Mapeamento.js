@@ -4,6 +4,7 @@ import * as xlsx from 'xlsx';
 import JDT from '../jdt.json';
 import axios from 'axios';
 
+let composition = {};
 
 function Mapeamento() {
     const [valoresJson, setValoresJson] = useState({});
@@ -127,6 +128,7 @@ function Mapeamento() {
             //console.log(composition);
             setValoresJson(valores_json);
             setComposition(composition);
+            
 
 
             axios.post('/savejson', composition)
@@ -140,8 +142,9 @@ function Mapeamento() {
         reader.readAsArrayBuffer(file);
 
     };
-
-    const outputElements = [];
+    
+    console.log(composition);
+    
 
     useEffect(() => {
         if (Object.keys(composition).length > 0) {
@@ -149,13 +152,17 @@ function Mapeamento() {
         }
     }, [composition]);
 
+    
+
     return (
         <div>
             <input type="file" onChange={(event) => handleFileChange(event)} />
         </div>
     );
-
+    
 
 }
-
+export { composition };
 export default Mapeamento;
+
+

@@ -20,8 +20,8 @@ const Home = () => {
             >
                 <Avatar image={Logo} />
             </div>
-            <StyledTitle size={65}>Welcome to React App</StyledTitle>
-            <StyledSubTitle size={27}>Feel free to explore our page</StyledSubTitle>
+            <StyledTitle size={65}>Pediatric Clinic XPTO</StyledTitle>
+            <StyledSubTitle size={27}>This clinic is the best of all, already with fully computerized clinical support. Take advantage of this platform!</StyledSubTitle>
             <ButtonGroup>
                 <StyledButton to="/login">Login</StyledButton>
                 <StyledButton to="/signup">Signup</StyledButton>
