@@ -8,6 +8,7 @@ import Formu from "./pages/Forms";
 
 import Mapeamento from "./pages/Mapeamento";
 import GetComposition from "./pages/Getcompos";
+import AllCompos from "./pages/Allcompos";
 
 
 
@@ -37,6 +38,7 @@ function App() {
 
           <Route path="/savejson" caseSensitive={false} element={<Mapeamento />} />
           <Route path="/findjson" caseSensitive={false} element={<GetComposition />} />
+          <Route path="/alljson" caseSensitive={false} element={<AllCompos />} />
           
         </Routes>
 

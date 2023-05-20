@@ -59,6 +59,7 @@ export const Avatar = styled.div`
 export const StyledButton = styled(Link)`
     padding: 18px;
     width: 150px;
+    height: 90px;
     background-color: transparent;
     font-size: 16px;
     border: 3px solid ${colors.primary};
@@ -68,7 +69,7 @@ export const StyledButton = styled(Link)`
     text-align: center;
     transition: ease-in-out 0.3s;
     outline: 0;
-    
+    margin-right:20px;
     &:hover{
         background-color: ${colors.primary};
         color: ${colors.theme};

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as xlsx from 'xlsx';
 
 import JDT from '../jdt.json';
@@ -53,8 +53,7 @@ function Mapeamento() {
                     variavel_true = key;
                 }
             }
-
-
+            
             let composition = {
                 "items.0.0.items.O.value": { "code": "at0014", "id": valores_json["EPISODIO"], "type": "local" },
 
@@ -73,9 +72,10 @@ function Mapeamento() {
                     "code": variavel_true,
                     "text": JDT.items[0][0].items[7].items[0].itemsList.find(item => item.code === variavel_true).text
                 },
-
+                //coments em relação ao local proveniencia
                 "items.0.0.items.7.items.1.value": null,
-                "items.0.0.items.8.items.0.value": null,
+                //coments em cima da infeção
+                "items.0.0.items.8.items.0.value": valores_json["SINDROBS01"],
 
                 "items.0.0.items.8.items.1.value": {
                     "code": JDT.items[0][0].items[8].items[1].itemsList.find(item => item.text === valores_json["INFECADM10"]).code,
@@ -86,7 +86,9 @@ function Mapeamento() {
                     "code": "at0003",
                     "text": valores_json["INFECADM30"],
                 },
+                //comenst em relação ao local da infeção
                 "items.0.0.items.9.value": null,
+                //titulo da historia
                 "items.0.1.items.0.value": null,
 
                 "items.0.1.items.1.value": [
@@ -125,7 +127,6 @@ function Mapeamento() {
                 "items.0.6.items.0.value.value": valores_json["NADMSCI1715"],
 
             }
-            //console.log(composition);
             setValoresJson(valores_json);
             setComposition(composition);
             
@@ -142,15 +143,6 @@ function Mapeamento() {
         reader.readAsArrayBuffer(file);
 
     };
-    
-    console.log(composition);
-    
-
-    useEffect(() => {
-        if (Object.keys(composition).length > 0) {
-            window.location.href = '/forms';
-        }
-    }, [composition]);
 
     
 

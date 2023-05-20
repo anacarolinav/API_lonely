@@ -67,8 +67,8 @@ const Compositions = mongoose.model('Compositions', new mongoose.Schema({
 
 }), 'Compositions');
 
-//res.send('JSON saved to database');
 
+//to save the excel as a composition in mongo when the doctor makes the upload of the excel
 app.post('/savejson', (req, res) => {
   const json = req.body;
   console.log(json);
@@ -88,7 +88,7 @@ app.post('/savejson', (req, res) => {
 })
 
 
-//22001350
+//to get only one composition for the patient with the number that the doctor searches for
 app.get('/findjson/:id', (req, res) => {
   const Id = req.params.id;
 
@@ -109,6 +109,47 @@ app.get('/findjson/:id', (req, res) => {
       res.send('Ocorreu um erro ao buscar o JSON');
     });
 });
+
+//to get all the compositions saved in our db
+/*
+app.get('/alljson', (req, res) => {
+  Compositions.find({})
+    .select('composition_id')
+    .then((compositions) => {
+      if (compositions.length > 0) {
+        const compositionIds = compositions.map((composition) => composition.composition_id);
+        console.log(compositionIds);
+        res.send('Fetched com sucesso!');
+      } else {
+        console.log('Nenhuma composição encontrada');
+        res.send('Nenhuma composição encontrada');
+      }
+    })
+    .catch((error) => {
+      console.log('Erro: ', error);
+      res.send('Ocorreu um erro ao buscar as composições');
+    });
+});
+*/
+
+app.get('/alljson', (req, res) => {
+  Compositions.find({})
+    .then((compositions) => {
+      if (compositions.length > 0) {
+        console.log(compositions);
+        res.send(compositions);
+      } else {
+        console.log('Nenhuma composição encontrada');
+        res.send('Nenhuma composição encontrada');
+      }
+    })
+    .catch((error) => {
+      console.log('Erro: ', error);
+      res.send('Ocorreu um erro ao buscar as composições');
+    });
+});
+
+
 
 
 const PORT = 8080;

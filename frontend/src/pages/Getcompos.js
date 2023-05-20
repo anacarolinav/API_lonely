@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const Composition = () => {
@@ -27,28 +27,23 @@ const Composition = () => {
     fetchComposition();
   };
 
-  useEffect(() => {
-        if (Object.keys(composition).length > 0) {
-            window.location.href = '/forms';
-        }
-    }, [composition]);
 
   return (
     <div>
-      <h1>Composição</h1>
+      <h1>Episode</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Episode ID:
           <input type="text" value={id} onChange={handleInputChange} />
         </label>
-        <button type="submit">Fetch Composition</button>
+        <button type="submit">Search the episode ID</button>
       </form>
       {error ? (
         <p>{error}</p>
       ) : composition ? (
         <pre>{JSON.stringify(composition, null, 2)}</pre>
       ) : (
-        <p>No composition fetched yet.</p>
+        <p>No episode ID found yet.</p>
       )}
     </div>
   );

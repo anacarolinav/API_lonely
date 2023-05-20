@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledTitle, Avatar, StyledButton, ButtonGroup, StyledFormArea, colors } from "../components/Styles";
+import { Avatar, StyledButton, ButtonGroup } from "../components/Styles";
 
 // Logo
 import Logo from '../assets/logo.png';
@@ -21,12 +21,13 @@ function Dashboard() {
       >
         <Avatar image={Logo} />
       </div>
-      <form style={{ backgroundColor: '#f2f2f2', border: '2px solid #ccc', borderRadius: '5px', padding: '20px' }}>
-      <h2 style={{ fontSize: '45px', textAlign: 'center', padding: '5px' }}>Welcome, medical user</h2>
+      <form style={{ border: '2px solid #ccc', borderRadius: '5px', padding: '20px' }}>
+      <h2 style={{ color:'white',fontSize: '45px', textAlign: 'center', padding: '5px' }}>Welcome, doctor admin</h2>
         <ButtonGroup>
           <StyledButton to="/">Logout</StyledButton>
-          <StyledButton to="/savejson">Upload an excel from a patient</StyledButton>
+          <StyledButton to="/savejson">Upload excel from a patient</StyledButton>
           <StyledButton to="/findjson">See the form from a patient</StyledButton>
+          <StyledButton to="/alljson">Get all compos from the db</StyledButton>
         </ButtonGroup>
       </form>
     </div>
