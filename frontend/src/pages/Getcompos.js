@@ -30,20 +30,21 @@ const Composition = () => {
 
   return (
     <div>
-      <h1>Episode</h1>
+      <h1 style={{ color: 'white', fontSize: '45px', textAlign: 'center', padding: '5px', marginBottom: '18px' }}>Episodes</h1>
+
       <form onSubmit={handleSubmit}>
-        <label>
+        <label style={{ color: 'white', fontSize: '24px'}}>
           Episode ID:
-          <input type="text" value={id} onChange={handleInputChange} />
+          <input type="text" value={id} onChange={handleInputChange} style={{ marginRight:'12px'}}/>
         </label>
-        <button type="submit">Search the episode ID</button>
+        <button type="submit" style={{ color: 'white', fontSize: '24px',cursor: 'pointer', marginLeft:'8px' }}>Search the episode ID</button>
       </form>
       {error ? (
-        <p>{error}</p>
+        <p style={{ color: 'white', fontSize: '24px', marginTop:'15px' }}>{error}</p>
       ) : composition ? (
-        <pre>{JSON.stringify(composition, null, 2)}</pre>
+        <pre style={{ color: 'white', fontSize: '24px', marginTop:'15px' }}>{JSON.stringify(composition, null, 2)}</pre>
       ) : (
-        <p>No episode ID found yet.</p>
+        <p style={{ color: 'white', fontSize: '24px', marginTop:'15px' }}>No episode ID found yet.</p>
       )}
     </div>
   );

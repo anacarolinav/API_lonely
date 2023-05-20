@@ -57,9 +57,9 @@ export const Avatar = styled.div`
 `;
 
 export const StyledButton = styled(Link)`
-    padding: 18px;
-    width: 150px;
-    height: 90px;
+    padding: 8px;
+    width: 200px;
+    height: 60px;
     background-color: transparent;
     font-size: 16px;
     border: 3px solid ${colors.primary};

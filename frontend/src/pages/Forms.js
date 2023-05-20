@@ -1,8 +1,6 @@
 import { Form } from "protected-aidaforms";
 import { replaceValuesJDT } from "../ReplaceValuesJDT";
 
-import { composition } from "./Mapeamento";
-
 let composition1 = {
     "items.0.0.items.0.value": {
         "code": "at0014",
@@ -77,14 +75,10 @@ let jdt = require("../jdt.json");
 
 
 function Formu() {
-
-    console.log("importation" + composition);
-    let newjdt = replaceValuesJDT(jdt, composition)
-    console.log(newjdt);
     
     console.log("importation ai ai" + composition1);
-    let newjdt_aiai = replaceValuesJDT(jdt, composition1)
-    console.log(newjdt_aiai);
+    let newjdt = replaceValuesJDT(jdt, composition1)
+    console.log(newjdt);
 
     
 

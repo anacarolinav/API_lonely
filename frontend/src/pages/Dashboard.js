@@ -22,14 +22,19 @@ function Dashboard() {
         <Avatar image={Logo} />
       </div>
       <form style={{ border: '2px solid #ccc', borderRadius: '5px', padding: '20px' }}>
-      <h2 style={{ color:'white',fontSize: '45px', textAlign: 'center', padding: '5px' }}>Welcome, doctor admin</h2>
+        <h2 style={{ color: 'white', fontSize: '45px', textAlign: 'center', padding: '5px' }}>Welcome, doctor admin</h2>
         <ButtonGroup>
-          <StyledButton to="/">Logout</StyledButton>
           <StyledButton to="/savejson">Upload excel from a patient</StyledButton>
           <StyledButton to="/findjson">See the form from a patient</StyledButton>
           <StyledButton to="/alljson">Get all compos from the db</StyledButton>
+          <StyledButton to="/stat">See statistics of the clinic's patients</StyledButton>
         </ButtonGroup>
       </form>
+      <div style={{ marginTop: '105px', display: 'flex', justifyContent: 'center' }}>
+        <StyledButton to="/">Logout</StyledButton>
+      </div>
+
+
     </div>
   );
 }

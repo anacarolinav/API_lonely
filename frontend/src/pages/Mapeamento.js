@@ -4,7 +4,7 @@ import * as xlsx from 'xlsx';
 import JDT from '../jdt.json';
 import axios from 'axios';
 
-let composition = {};
+
 
 function Mapeamento() {
     const [valoresJson, setValoresJson] = useState({});
@@ -53,7 +53,7 @@ function Mapeamento() {
                     variavel_true = key;
                 }
             }
-            
+
             let composition = {
                 "items.0.0.items.O.value": { "code": "at0014", "id": valores_json["EPISODIO"], "type": "local" },
 
@@ -129,7 +129,7 @@ function Mapeamento() {
             }
             setValoresJson(valores_json);
             setComposition(composition);
-            
+
 
 
             axios.post('/savejson', composition)
@@ -144,17 +144,29 @@ function Mapeamento() {
 
     };
 
-    
+
 
     return (
         <div>
-            <input type="file" onChange={(event) => handleFileChange(event)} />
+            <form style={{ border: '2px solid #ccc', borderRadius: '5px', padding: '20px' }}>
+                <label htmlFor="fileInput" style={{ color: 'white', fontSize: '24px', cursor: 'pointer' }}>
+                    Choose a file from your local machine
+                </label>
+                <input
+                    id="fileInput"
+                    type="file"
+                    onChange={(event) => handleFileChange(event)}
+                    style={{ display: 'none' }}
+                    accept=".xlsx"
+                />
+
+            </form>
         </div>
     );
-    
+
 
 }
-export { composition };
+
 export default Mapeamento;
 
 
