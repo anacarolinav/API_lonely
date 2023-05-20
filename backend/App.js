@@ -98,40 +98,19 @@ app.get('/findjson/:id', (req, res) => {
       if (composition) {
         const json = composition.items;
         console.log(json);
-        res.send('Fetched com sucesso!');
+        res.send('Episode id found with sucess');
       } else {
-        console.log('Documento não encontrado');
-        res.send('Documento não encontrado');
+        console.log('Episode not found');
+        res.send('Episode not found');
       }
     })
     .catch(error => {
       console.log('Error: ', error);
-      res.send('Ocorreu um erro ao buscar o JSON');
+      res.send('An error occurred while fetching JSON');
     });
 });
 
 //to get all the compositions saved in our db
-/*
-app.get('/alljson', (req, res) => {
-  Compositions.find({})
-    .select('composition_id')
-    .then((compositions) => {
-      if (compositions.length > 0) {
-        const compositionIds = compositions.map((composition) => composition.composition_id);
-        console.log(compositionIds);
-        res.send('Fetched com sucesso!');
-      } else {
-        console.log('Nenhuma composição encontrada');
-        res.send('Nenhuma composição encontrada');
-      }
-    })
-    .catch((error) => {
-      console.log('Erro: ', error);
-      res.send('Ocorreu um erro ao buscar as composições');
-    });
-});
-*/
-
 app.get('/alljson', (req, res) => {
   Compositions.find({})
     .then((compositions) => {
@@ -139,13 +118,13 @@ app.get('/alljson', (req, res) => {
         console.log(compositions);
         res.send(compositions);
       } else {
-        console.log('Nenhuma composição encontrada');
-        res.send('Nenhuma composição encontrada');
+        console.log('No forms found');
+        res.send('No forms found');
       }
     })
     .catch((error) => {
-      console.log('Erro: ', error);
-      res.send('Ocorreu um erro ao buscar as composições');
+      console.log('Error: ', error);
+      res.send('An error occurred while fetching the forms');
     });
 });
 

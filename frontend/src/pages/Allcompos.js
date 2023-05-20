@@ -51,7 +51,7 @@ const AllCompositions = () => {
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style={{color:'white'}}>
                             {selectedComposition &&
                                 Object.entries(selectedComposition.items).map(
                                     ([itemName, itemValue], index) => (

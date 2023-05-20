@@ -35,8 +35,8 @@ const Composition = () => {
       <form onSubmit={handleSubmit}>
         <label style={{ color: 'white', fontSize: '24px'}}>
           Episode ID:
-          <input type="text" value={id} onChange={handleInputChange} style={{ marginRight:'12px'}}/>
         </label>
+        <input type="text" value={id} onChange={handleInputChange} style={{ marginRight:'12px'}}/>
         <button type="submit" style={{ color: 'white', fontSize: '24px',cursor: 'pointer', marginLeft:'8px' }}>Search the episode ID</button>
       </form>
       {error ? (
