@@ -10,14 +10,12 @@ let jdt = require("../jdt.json");
 let style = require('../style_admissao.json');
 
 const AllCompositions = () => {
-    
+
     const [compositions, setCompositions] = useState([]);
     const [selectedComposition, setSelectedComposition] = useState(null);
     const [error, setError] = useState(null);
+    const [newjdt, setNewjdt] = useState(null);
 
-    console.log("importation" + composition);
-    let newjdt = replaceValuesJDT(jdt, composition)
-    console.log(newjdt);
 
     useEffect(() => {
         getCompositions();
@@ -27,16 +25,23 @@ const AllCompositions = () => {
         try {
             const response = await axios.get('/alljson');
             const compositionData = response.data;
+            console.log(compositionData);
             setCompositions(compositionData);
+
+            let updatedJdt = replaceValuesJDT(jdt, compositionData)
+            setNewjdt(updatedJdt);
+            console.log()
             setError(null);
         } catch (error) {
             setCompositions([]);
             setError('Error: ' + error.message);
         }
+
     };
 
     const handleCompositionClick = (composition) => {
         setSelectedComposition(composition);
+        setNewjdt(composition);
     };
 
     return (
@@ -55,32 +60,31 @@ const AllCompositions = () => {
                 ))}
                 <StyledSubTitle style={{ marginTop: '50px', fontSize: '30px' }}>Informations about the episode:</StyledSubTitle>
 
-                <Form
-                    onSubmit={(values, changedFields) => console.log("SUBMITTED VALUES: ", values, "CHANGED FIELDS: ", changedFields)}
-                    onSave={(values, changedFields) => console.log("SAVED VALUES: ", values, "CHANGED FIELDS: ", changedFields)}
-                    onCancel={status => console.log("CANCELLED:", status)}
-                    template={newjdt}
-                    dlm={{}}
-                    showPrint={true}
-                    editMode={false} // colocar assim porque não vamos editar os formulários
-                    professionalTasks={
-                        ["Registar Pedido", "Consultar Pedido",
-                            "Anular Pedido"]}
-                    canSubmit={true}
-                    canSave={true}
-                    canCancel={true}
-                    patientData={{}}
-                    reportData={{}}
-                    referenceModel={[]}
-                    submitButtonDisabled={false}
-                    saveButtonDisabled={false}
-                    formDesign={JSON.stringify(style)}
-                />
+                {newjdt && (
+                    <Form
+                        onSubmit={(values, changedFields) => console.log("SUBMITTED VALUES: ", values, "CHANGED FIELDS: ", changedFields)}
+                        onSave={(values, changedFields) => console.log("SAVED VALUES: ", values, "CHANGED FIELDS: ", changedFields)}
+                        onCancel={status => console.log("CANCELLED:", status)}
+                        template={newjdt}
+                        dlm={{}}
+                        showPrint={true}
+                        editMode={false} // colocar assim porque não vamos editar os formulários
+                        professionalTasks={["Registar Pedido", "Consultar Pedido", "Anular Pedido"]}
+                        canSubmit={true}
+                        canSave={true}
+                        canCancel={true}
+                        patientData={{}}
+                        reportData={{}}
+                        referenceModel={[]}
+                        submitButtonDisabled={false}
+                        saveButtonDisabled={false}
+                        formDesign={JSON.stringify(style)}
+                    />
+                )}
             </div>
         </div>
-    )
-
-}
+    );
+};
 
 export default AllCompositions;
 
