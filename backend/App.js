@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 const ObjectId = require('mongodb').ObjectId;
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect("mongodb://localhost:9000/CAIBE", { useNewUrlParser: true });
 
+app.get("/", (req,res) =>{
+  res.sendFile(path.join(__dirname + 'index.html'))
+})
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
 
 const UserCredentials = mongoose.model('UserCredentials', new mongoose.Schema({
   _id: ObjectId,
@@ -21,6 +21,7 @@ const UserCredentials = mongoose.model('UserCredentials', new mongoose.Schema({
 }), 'user_credentials');
 
 app.post('/login', (req, res) => {
+  console.log(req)
   const { username, password } = req.body;
   console.log('Received login request with username:', username, 'and password:', password);
   UserCredentials.findOne({ username: username, password: password })
@@ -73,7 +74,7 @@ app.post('/savejson', (req, res) => {
   const json = req.body;
   console.log(json);
   const newComposition = new Compositions({
-    composition_id:json['items.0.0.items.O.value'].id,
+    composition_id:json["items.0.0.items.0.value"],
     items: json
 
   });
@@ -98,7 +99,7 @@ app.get('/findjson/:id', (req, res) => {
       if (composition) {
         const json = composition.items;
         console.log(json);
-        res.send('Episode id found with sucess');
+        res.send(json);
       } else {
         console.log('Episode not found');
         res.send('Episode not found');

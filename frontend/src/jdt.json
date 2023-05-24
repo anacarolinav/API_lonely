@@ -1774,7 +1774,7 @@
               },
               "occurrences": {
                 "lowerOccurrences": 0,
-                "upperOccurrences": "*"
+                "upperOccurrences": 1
               },
               "path": "[openEHR-EHR-COMPOSITION.encounter.v1]/[openEHR-EHR-OBSERVATION.story.v1]/[at0004]",
               "ruleMandatory": [],

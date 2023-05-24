@@ -10,7 +10,6 @@ import Mapeamento from "./pages/Mapeamento";
 import GetComposition from "./pages/Getcompos";
 import AllCompos from "./pages/Allcompos";
 
-import Stats from "./pages/Stats";
 
 
 
@@ -42,7 +41,7 @@ function App() {
           <Route path="/findjson" caseSensitive={false} element={<GetComposition />} />
           <Route path="/alljson" caseSensitive={false} element={<AllCompos />} />
 
-          <Route path="/stats" caseSensitive={false} element={<Stats />} />
+          <Route path="/" caseSensitive={false} element={<Dashboard />} />
           
         </Routes>
 

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as xlsx from 'xlsx';
 
 import JDT from '../jdt.json';
 import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
 
 
 function Mapeamento() {
+    const navigate = useNavigate();
     const [valoresJson, setValoresJson] = useState({});
     const [composition, setComposition] = useState({});
 
@@ -24,7 +26,7 @@ function Mapeamento() {
             return dataFormatada.slice(0, 10);
         } else if (tipo === 'hora') {
             // Se for solicitado apenas a hora, retorne a parte da hora formatada
-            return dataFormatada.slice(11);
+            return dataFormatada.slice(11,16);
         } else {
             // Se nenhum tipo for solicitado ou o tipo for inválido, retorne a data formatada completa
             return dataFormatada;
@@ -54,11 +56,12 @@ function Mapeamento() {
                 }
             }
 
-            let composition = {
-                "items.0.0.items.O.value": { "code": "at0014", "id": valores_json["EPISODIO"], "type": "local" },
 
-                "items.0.0.items.1.date": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'data'),
-                "items.0.0.items.1.time": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'hora'),
+            let composition = {
+                "items.0.0.items.0.value": valores_json["EPISODIO"],
+
+                "items.0.0.items.1.value.date": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'data'),
+                "items.0.0.items.1.value.time": converterDataSerialParaDataHora(valores_json["DATACRIACAO"], 'hora'),
 
 
                 "items.0.0.items.2.value": { "code": JDT.items[0][0].items[2].itemsList.find(item => item.text === valores_json["SINDR01"]).code, "text": valores_json["SINDR01"] },
@@ -82,21 +85,13 @@ function Mapeamento() {
                     "text": valores_json["INFECADM10"]
                 },
 
-                "items.0.0.items.8.items.2.value": {
-                    "code": "at0003",
-                    "text": valores_json["INFECADM30"],
-                },
+                "items.0.0.items.8.items.2.value": valores_json["INFECADM30"],
                 //comenst em relação ao local da infeção
                 "items.0.0.items.9.value": null,
                 //titulo da historia
                 "items.0.1.items.0.value": null,
 
-                "items.0.1.items.1.value": [
-                    {
-                        "code": "at0004",
-                        "text": valores_json["NADMSCI137"],
-                    }
-                ],
+                "items.0.1.items.1.value":  valores_json["NADMSCI137"],
 
                 "items.0.2.items.0.items.0.value.unit": "Cel",
                 "items.0.2.items.0.items.0.value.value": valores_json["NADMSCI17"],
@@ -127,10 +122,11 @@ function Mapeamento() {
                 "items.0.6.items.0.value.value": valores_json["NADMSCI1715"],
 
             }
+
+            console.log('sou json',composition)
+
             setValoresJson(valores_json);
             setComposition(composition);
-
-
 
             axios.post('/savejson', composition)
                 .then(response => {
@@ -144,6 +140,14 @@ function Mapeamento() {
 
     };
 
+    //direcionamento para forms
+    useEffect(() => {
+        if(Object.keys(composition).length>0){
+            console.log(composition);
+            navigate("/forms", {state:composition})
+
+        }
+    })
 
 
     return (

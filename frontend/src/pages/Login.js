@@ -12,8 +12,10 @@ function Login() {
     setPassword(event.target.value);
   }
 
+
+
   return (
-    <form action="/login" method="post" className="form" style={{ backgroundColor: '#f2f2f2', border: '2px solid #ccc', borderRadius: '5px', padding: '20px' }}>
+    <form action="/login" method="post" className="form" style={{ backgroundColor: '#f2f2f2', border: '2px solid #ccc', borderRadius: '5px', padding: '20px' } } >
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <h2 style={{ fontSize: '24px', textAlign: 'center', padding: '5px' }}>Login</h2>
         <label>Username:
