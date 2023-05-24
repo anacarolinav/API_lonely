@@ -11,12 +11,7 @@ function Formu() {
     
     const location = useLocation();
     const composition = location.state;
-
-    console.log("importation" + composition);
     let newjdt = replaceValuesJDT(jdt, composition)
-    console.log(newjdt);
-
-    
 
     return (
         <Form
