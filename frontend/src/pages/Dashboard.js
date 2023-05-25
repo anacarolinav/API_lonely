@@ -27,7 +27,7 @@ function Dashboard() {
           <StyledButton to="/savejson">Upload excel from a patient</StyledButton>
           <StyledButton to="/findjson">See the form from a patient</StyledButton>
           <StyledButton to="/alljson">Get all compos from the db</StyledButton>
-          <StyledButton to="/stat">See statistics of the clinic's patients</StyledButton>
+          <StyledButton to="/data">See statistics of the clinic's patients</StyledButton>
         </ButtonGroup>
       </form>
       <div style={{ marginTop: '105px', display: 'flex', justifyContent: 'center' }}>

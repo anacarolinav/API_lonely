@@ -10,7 +10,7 @@ import Mapeamento from "./pages/Mapeamento";
 import GetComposition from "./pages/Getcompos";
 import AllCompos from "./pages/Allcompos";
 
-
+import Stats from "./pages/Stats";
 
 
 //Styled components
@@ -41,7 +41,7 @@ function App() {
           <Route path="/findjson" caseSensitive={false} element={<GetComposition />} />
           <Route path="/alljson" caseSensitive={false} element={<AllCompos />} />
 
-          <Route path="/" caseSensitive={false} element={<Dashboard />} />
+          <Route path="/data" caseSensitive={false} element={<Stats />} />
           
         </Routes>
 
