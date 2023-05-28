@@ -130,6 +130,35 @@ app.get('/alljson', (req, res) => {
 });
 
 
+const connection = mysql.createConnection({
+  host: "localhost",
+  port: '3306',
+  user: "admin",
+  password: "admin_123",
+  database: "CAIBE"
+});
+
+connection.connect((error) => {
+  if (error) {
+    console.error("Error connecting to MySQL database:", error);
+  } else {
+    console.log("Connected to MySQL database");
+  }
+});
+
+app.get("/query1", (req, res) => {
+  const query1 = "SELECT composition_id FROM caibe4compositions";
+  connection.query(query1, [], (error, results) => {
+    if (error) {
+      console.error("Error executing MySQL query:", error);
+      res.status(500).send("An error occurred");
+      return;
+    }
+    console.log("Composition IDs:", results);
+    res.json(results);
+  });
+});
+
 const PORT = 8080;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
