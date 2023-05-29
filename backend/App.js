@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const ObjectId = require('mongodb').ObjectId;
 const app = express();
+const mysql = require('mysql2');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -133,9 +134,9 @@ app.get('/alljson', (req, res) => {
 const connection = mysql.createConnection({
   host: "localhost",
   port: '3306',
-  user: "admin",
-  password: "admin_123",
-  database: "CAIBE"
+  user: "root",
+  password: "abriLyly17",
+  database: "projectAPI"
 });
 
 connection.connect((error) => {
@@ -146,7 +147,7 @@ connection.connect((error) => {
   }
 });
 
-app.get("/query1", (req, res) => {
+app.get("/stats1", (req, res) => {
   const query1 = "SELECT composition_id FROM caibe4compositions";
   connection.query(query1, [], (error, results) => {
     if (error) {
