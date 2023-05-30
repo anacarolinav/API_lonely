@@ -5,11 +5,11 @@ const ObjectId = require('mongodb').ObjectId;
 const app = express();
 const mysql = require('mysql2');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect("mongodb://localhost:9000/CAIBE", { useNewUrlParser: true });
 
-app.get("/", (req,res) =>{
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + 'index.html'))
 })
 
@@ -75,7 +75,7 @@ app.post('/savejson', (req, res) => {
   const json = req.body;
   console.log(json);
   const newComposition = new Compositions({
-    composition_id:json["items.0.0.items.0.value"],
+    composition_id: json["items.0.0.items.0.value"],
     items: json
 
   });
@@ -148,7 +148,8 @@ connection.connect((error) => {
 });
 
 app.get("/stats1", (req, res) => {
-  const query1 = "SELECT composition_id FROM caibe4compositions";
+  //const query1 = "SELECT composition_id FROM caibe4compositions";
+  const query1 = "SELECT `items.items.0.0.items.7.items.0.value.text`, COUNT(*) AS frequency FROM projectAPI.caibe4compositions GROUP BY `items.items.0.0.items.7.items.0.value.text`;"
   connection.query(query1, [], (error, results) => {
     if (error) {
       console.error("Error executing MySQL query:", error);
