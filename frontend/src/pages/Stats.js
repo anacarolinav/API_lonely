@@ -1,12 +1,13 @@
 import React from 'react';
-import './style.css';
+import "../style.css";
+import { Link } from 'react-router-dom';
 
 const App = () => {
   return (
     <div className="container">
-      <div className="button">
-        <span>Médias por peso</span>
-      </div>
+      <Link to="/stats1" className="button">
+        <span>Médias da proveniencia</span>
+      </Link>
       <div className="button">
         <span>Médias por centro</span>
       </div>
