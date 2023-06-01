@@ -1320,6 +1320,10 @@
                 {
                   "code": "local_terms::P",
                   "text": "Programado"
+                },
+                {
+                  "code": "local_terms::O",
+                  "text": "- escolha -"
                 }
               ],
               "node": {
