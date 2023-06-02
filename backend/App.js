@@ -148,7 +148,6 @@ connection.connect((error) => {
 });
 
 app.get("/stats1", (req, res) => {
-  //const query1 = "SELECT composition_id FROM caibe4compositions";
   const query1 = "SELECT `items.items.0.0.items.7.items.0.value.text`, COUNT(*) AS frequency FROM projectAPI.caibe4compositions GROUP BY `items.items.0.0.items.7.items.0.value.text`;"
   connection.query(query1, [], (error, results) => {
     if (error) {
