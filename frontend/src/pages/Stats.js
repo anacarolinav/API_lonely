@@ -14,7 +14,7 @@ const App = () => {
       <div className="button">
         <span>Barras por médico</span>
       </div>
-      <div className="button">
+      <div to="/stats2" className="button">
         <span>Circular</span>
       </div>
     </div>

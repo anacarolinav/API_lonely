@@ -12,6 +12,8 @@ import AllCompos from "./pages/Allcompos";
 
 import Data from "./pages/Stats";
 import Stats1 from "./pages/Query1";
+import Stats2 from "./pages/Query2";
+import Stats3 from "./pages/Query3";
 
 
 //Styled components
@@ -44,6 +46,8 @@ function App() {
 
           <Route path="/data" caseSensitive={false} element={<Data />} />
           <Route path="/stats1" caseSensitive={false} element={<Stats1 />} />
+          <Route path="/stats2" caseSensitive={false} element={<Stats2 />} />
+          <Route path="/stats3" caseSensitive={false} element={<Stats3 />} />
           
         </Routes>
 

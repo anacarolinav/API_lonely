@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const Example = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('/stats1')
+        fetch('/stats2')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.log(error));
     }, []);
 
+    console.log(data)
+
     return (
         <ResponsiveContainer width="100%" height={300}>
-            <BarChart
+            <LineChart
                 data={data}
                 margin={{
                     top: 5,
@@ -23,18 +25,20 @@ const Example = () => {
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="items.items.0.0.items.7.items.0.value.text" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
                 {data.length > 0 && (
-                    <Bar dataKey="frequency" fill="#8884d8" />
+                    <>
+                        <Line type="monotone" dataKey="frequency" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        
+                    </>
                 )}
-            </BarChart>
+            </LineChart>
         </ResponsiveContainer>
     );
 };
 
 export default Example;
-
 

@@ -148,14 +148,39 @@ connection.connect((error) => {
 });
 
 app.get("/stats1", (req, res) => {
-  const query1 = "SELECT `items.items.0.0.items.7.items.0.value.text`, COUNT(*) AS frequency FROM projectAPI.caibe4compositions GROUP BY `items.items.0.0.items.7.items.0.value.text`;"
+  const query1 = "SELECT `items.items.0.0.items.7.items.0.value.text`, COUNT(*) AS frequency FROM projectAPI.episodes GROUP BY `items.items.0.0.items.7.items.0.value.text`;"
   connection.query(query1, [], (error, results) => {
     if (error) {
       console.error("Error executing MySQL query:", error);
       res.status(500).send("An error occurred");
       return;
     }
-    console.log("Composition IDs:", results);
+    res.json(results);
+  });
+});
+
+app.get("/stats2", (req, res) => {
+  const query2 = "SELECT MONTH(`items.items.0.0.items.1.value.date`) AS month, COUNT(*) as frequency FROM projectAPI.episodes GROUP BY MONTH(`items.items.0.0.items.1.value.date`);"
+  connection.query(query2, [], (error, results) => {
+    if (error) {
+      console.error("Error executing MySQL query:", error);
+      res.status(500).send("An error occurred");
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get("/stats3", (req, res) => {
+  const query3 = "SELECT `items.items.0.0.items.2.value.text` AS options, COUNT(*) as frequency FROM projectAPI.episodes GROUP BY options;"
+  connection.query(query3, [], (error, results) => {
+    console.log("ESTOU LIGADO")
+    console.log(results)
+    if (error) {
+      console.error("Error executing MySQL query:", error);
+      res.status(500).send("An error occurred");
+      return;
+    }
     res.json(results);
   });
 });
