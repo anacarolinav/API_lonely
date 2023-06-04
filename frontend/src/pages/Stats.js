@@ -1,23 +1,16 @@
 import React from 'react';
 import "../style.css";
-import { Link } from 'react-router-dom';
+import { StyledButton, ButtonGroup } from "../components/Styles";
+
 
 const App = () => {
   return (
-    <div className="container">
-      <Link to="/stats1" className="button">
-        <span>Médias da proveniencia</span>
-      </Link>
-      <div className="button">
-        <span>Médias por centro</span>
-      </div>
-      <div className="button">
-        <span>Barras por médico</span>
-      </div>
-      <div to="/stats2" className="button">
-        <span>Circular</span>
-      </div>
-    </div>
+    <ButtonGroup>
+      <StyledButton to="/stats1">Averages of the provenance of babies</StyledButton>
+      <StyledButton to="/stats2">Distribution of Babies' Entry Dates</StyledButton>
+      <StyledButton to="/stats3">1st most common reasons for hospitalization of babies</StyledButton>
+      <StyledButton to="/stats4">General distribution of weight and age of babies</StyledButton>
+    </ButtonGroup>
   );
 };
 

@@ -59,7 +59,7 @@ export const Avatar = styled.div`
 export const StyledButton = styled(Link)`
     padding: 8px;
     width: 200px;
-    height: 60px;
+    height: 90px;
     background-color: transparent;
     font-size: 16px;
     border: 3px solid ${colors.primary};

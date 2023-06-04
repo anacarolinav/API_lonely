@@ -1,7 +1,7 @@
 //Pages
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
-import SignupPage from "./pages/Signup";
+import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Formu from "./pages/Forms";
 
@@ -33,7 +33,7 @@ function App() {
       <StyledContainer>
         <Routes>
 
-          <Route path="/signup" caseSensitive={false} element={<SignupPage />} />
+          <Route path="/signup" caseSensitive={false} element={<Signup />} />
           <Route path="/login" caseSensitive={false} element={<LoginPage />} />
           <Route path="/dashboard" caseSensitive={false} element={<Dashboard />} />
           <Route path="/forms" caseSensitive={false} element={<Formu />} />
