@@ -26,7 +26,7 @@ function Mapeamento() {
             return dataFormatada.slice(0, 10);
         } else if (tipo === 'hora') {
             // Se for solicitado apenas a hora, retorne a parte da hora formatada
-            return dataFormatada.slice(11,16);
+            return dataFormatada.slice(11, 16);
         } else {
             // Se nenhum tipo for solicitado ou o tipo for inválido, retorne a data formatada completa
             return dataFormatada;
@@ -91,7 +91,7 @@ function Mapeamento() {
                 //titulo da historia
                 "items.0.1.items.0.value": null,
 
-                "items.0.1.items.1.value":  valores_json["NADMSCI137"],
+                "items.0.1.items.1.value": valores_json["NADMSCI137"],
 
                 "items.0.2.items.0.items.0.value.unit": "Cel",
                 "items.0.2.items.0.items.0.value.value": valores_json["NADMSCI17"],
@@ -123,7 +123,7 @@ function Mapeamento() {
 
             }
 
-            console.log('sou json',composition)
+            console.log('sou json', composition)
 
             setValoresJson(valores_json);
             setComposition(composition);
@@ -140,15 +140,15 @@ function Mapeamento() {
 
     };
 
+
     //direcionamento para forms
     useEffect(() => {
-        if(Object.keys(composition).length>0){
+        if (Object.keys(composition).length > 0) {
             console.log(composition);
-            navigate("/forms", {state:composition})
+            navigate("/forms", { state: composition })
 
         }
     })
-
 
     return (
         <div>

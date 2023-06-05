@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, StyledButton, ButtonGroup } from "../components/Styles";
-
+import axios from 'axios';
 // Logo
 import Logo from '../assets/logo.png';
 
 function Dashboard() {
+  const [username, setUsername] = useState(""); // Estado para armazenar o nome de usuário
+
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`/username`); // Substitua pelo endpoint real para obter os dados do usuário
+      const user = response.data;
+      setUsername(user.username); // Atualiza o estado com o nome de usuário
+    } catch (error) {
+      console.log("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, [username]); // Adicione [username] como dependência
+
+
   return (
     <div>
       <div
@@ -22,7 +40,7 @@ function Dashboard() {
         <Avatar image={Logo} />
       </div>
       <form style={{ border: '2px solid #ccc', borderRadius: '5px', padding: '20px' }}>
-        <h2 style={{ color: 'white', fontSize: '45px', textAlign: 'center', padding: '5px' }}>Welcome, doctor admin</h2>
+        <h2 style={{ color: 'white', fontSize: '45px', textAlign: 'center', padding: '5px' }}>Welcome, doctor {username}</h2>
         <ButtonGroup>
           <StyledButton to="/savejson">Upload excel from a patient</StyledButton>
           <StyledButton to="/findjson">See the form from a patient</StyledButton>
@@ -33,8 +51,6 @@ function Dashboard() {
       <div style={{ marginTop: '105px', display: 'flex', justifyContent: 'center' }}>
         <StyledButton to="/">Logout</StyledButton>
       </div>
-
-
     </div>
   );
 }
