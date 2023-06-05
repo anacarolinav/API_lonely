@@ -7,7 +7,6 @@ import Logo from '../assets/logo.png';
 function Dashboard() {
   const [username, setUsername] = useState(""); // Estado para armazenar o nome de usuário
 
-
   const fetchUser = async () => {
     try {
       const response = await axios.get(`/username`); // Substitua pelo endpoint real para obter os dados do usuário
@@ -21,7 +20,6 @@ function Dashboard() {
   useEffect(() => {
     fetchUser();
   }, [username]); // Adicione [username] como dependência
-
 
   return (
     <div>

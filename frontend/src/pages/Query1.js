@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { StyledButton, ButtonGroup } from "../components/Styles";
 
 const Example = () => {
     const [data, setData] = useState([]);
@@ -13,7 +14,7 @@ const Example = () => {
 
     return (
         <div>
-            <h2 style={{ textAlign: 'center', fontSize: '30px', fontWeight: 'bold', color: 'white' }}>Averages of the provenance of babies</h2>
+            <h2 style={{ textAlign: 'center', fontSize: '30px', fontWeight: 'bold', color: 'white' }}>Distribution of patients' places of origin</h2>
             <ResponsiveContainer width={800} height={500}>
                 <BarChart
                     data={data}
@@ -30,13 +31,15 @@ const Example = () => {
                     <Tooltip />
                     <Legend />
                     {data.length > 0 && (
-                        <Bar dataKey="frequency" fill="#8884d8" />
+                        <Bar dataKey="frequency" fill="#BE185D" />
                     )}
                 </BarChart>
             </ResponsiveContainer>
+            <ButtonGroup>
+                <StyledButton to="/data">Back</StyledButton>
+            </ButtonGroup>
         </div>
     );
 };
 
 export default Example;
-

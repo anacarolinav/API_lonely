@@ -202,8 +202,6 @@ app.get("/stats2", (req, res) => {
 app.get("/stats3", (req, res) => {
   const query3 = "SELECT `items.items.0.0.items.2.value.text` AS options, COUNT(*) as frequency FROM projectAPI.episodes GROUP BY options;"
   connection.query(query3, [], (error, results) => {
-    console.log("ESTOU LIGADO")
-    console.log(results)
     if (error) {
       console.error("Error executing MySQL query:", error);
       res.status(500).send("An error occurred");
@@ -212,6 +210,19 @@ app.get("/stats3", (req, res) => {
     res.json(results);
   });
 });
+
+app.get("/stats4", (req, res) => {
+  const query4 = "SELECT `items.items.0.0.items.5.value.text` as urgencia, `items.items.0.2.items.4.items.1.value` as peso, `items.items.0.2.items.0.items.0.value.value` as temperatura FROM projectAPI.episodes WHERE `items.items.0.0.items.5.value.text` = 'Urgente';"
+  connection.query(query4, [], (error, results) => {
+    if (error) {
+      console.error("Error executing MySQL query:", error);
+      res.status(500).send("An error occurred");
+      return;
+    }
+    res.json(results);
+  });
+});
+
 
 const PORT = 8080;
 

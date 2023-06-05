@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import background from '../assets/bg.png';
 
 //React router
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const colors = {
     primary: "#fff",
@@ -33,7 +33,7 @@ export const StyledContainer = styled.div`
 export const StyledTitle = styled.h2`
     font-size: ${(props) => props.size}px;
     text-align: center;
-    color: ${(props) => props.color ? props.color: colors.primary};
+    color: ${(props) => props.color ? props.color : colors.primary};
     padding: 5px;
     margin-bottom: 20px;
 `;
@@ -41,7 +41,7 @@ export const StyledTitle = styled.h2`
 export const StyledSubTitle = styled.p`
     font-size: ${(props) => props.size}px;
     text-align: center;
-    color: ${(props) => props.color ? props.color: colors.primary};
+    color: ${(props) => props.color ? props.color : colors.primary};
     padding: 5px;
     margin-bottom: 25px;
 `;
@@ -57,6 +57,9 @@ export const Avatar = styled.div`
 `;
 
 export const StyledButton = styled(Link)`
+    display: flex;
+    align-items: center;
+    justify-content: center;    
     padding: 8px;
     width: 200px;
     height: 90px;

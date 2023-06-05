@@ -1,66 +1,45 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { StyledButton, ButtonGroup } from "../components/Styles";
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const Example = () => {
+    const [data, setData] = useState([]);
 
-const RADIAN = Math.PI / 180;
-
-const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-    index
-}) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    useEffect(() => {
+        fetch('/stats3')
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(error => console.log(error));
+    }, []);
 
     return (
-        <text
-            x={x}
-            y={y}
-            fill="white"
-            textAnchor={x > cx ? 'start' : 'end'}
-            dominantBaseline="central"
-        >
-            {`${(percent * 100).toFixed(0)}%`}
-        </text>
+        <div>
+            <h2 style={{ textAlign: 'center', fontSize: '30px', fontWeight: 'bold', color: 'white' }}>1st most common reasons for patient hospitalization</h2>
+            <ResponsiveContainer width={800} height={500}>
+                <BarChart
+                    data={data}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="options" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {data.length > 0 && (
+                        <Bar dataKey="frequency" fill="#BE185D" />
+                    )}
+                </BarChart>
+            </ResponsiveContainer>
+            <ButtonGroup>
+                <StyledButton to="/data">Back</StyledButton>
+            </ButtonGroup>
+        </div>
     );
 };
 
-export default class Example extends PureComponent {
-    render() {
-        const data = [
-            { name: 'Group A', value: 400 },
-            { name: 'Group B', value: 300 },
-            { name: 'Group C', value: 300 },
-            { name: 'Group D', value: 200 },
-        ];
-
-        return (
-            <ResponsiveContainer width="100%" height="100%">
-                <PieChart width={400} height={400}>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                    >
-                        {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </Pie>
-                </PieChart>
-            </ResponsiveContainer>
-        );
-    }
-}
-
-
+export default Example;
