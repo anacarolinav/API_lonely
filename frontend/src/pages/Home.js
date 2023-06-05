@@ -20,7 +20,7 @@ const Home = () => {
             >
                 <Avatar image={Logo} />
             </div>
-            <StyledTitle size={65}>Pediatric Clinic XPTO</StyledTitle>
+            <StyledTitle size={65}>Little Angels Pediatric Clinic</StyledTitle>
             <StyledSubTitle size={27}>This clinic is the best of all, already with fully computerized clinical support. Take advantage of this platform!</StyledSubTitle>
             <ButtonGroup>
                 <StyledButton to="/login">Login</StyledButton>
