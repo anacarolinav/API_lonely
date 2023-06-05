@@ -15,22 +15,26 @@ app.get("/", (req, res) => {
 
 
 const UserCredentials = mongoose.model('UserCredentials', new mongoose.Schema({
-  _id: ObjectId,
-  username: String,
-  email: String,
-  password: String
+  userId: { type: ObjectId, required: true },
+  username: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true }
 }), 'user_credentials');
 
+
+// Rota de login
 app.post('/login', (req, res) => {
-  console.log(req)
   const { username, password } = req.body;
   console.log('Received login request with username:', username, 'and password:', password);
   UserCredentials.findOne({ username: username, password: password })
     .then((user) => {
-      console.log(user)
+      console.log(user);
       if (user) {
         console.log('User found:', user);
-        res.redirect('/dashboard')
+        // Defina o userId do usuário autenticado na sessão ou no token JWT
+        const userId = user._id; // Supondo que o _id seja o userId
+        req.session.userId = userId; // Exemplo usando sessão
+        res.redirect('/dashboard');
       } else {
         console.log('User not found');
         res.send('Invalid username or password!');
@@ -42,6 +46,7 @@ app.post('/login', (req, res) => {
     });
 });
 
+// Rota de signup
 app.post('/signup', (req, res) => {
   const { username, email, password } = req.body;
   console.log('Received signup request with username:', username, ', email:', email, 'and password:', password);
@@ -54,7 +59,10 @@ app.post('/signup', (req, res) => {
   newUserCredentials.save()
     .then(() => {
       console.log('User registered:', newUserCredentials);
-      res.redirect('/login')
+      // Defina o userId do usuário cadastrado na sessão ou no token JWT
+      const userId = newUserCredentials._id; // Supondo que o _id seja o userId
+      req.session.userId = userId; // Exemplo usando sessão
+      res.redirect('/login');
     })
     .catch(error => {
       console.log('Error: ', error);
@@ -62,128 +70,98 @@ app.post('/signup', (req, res) => {
     });
 });
 
+
+
+
+
+
+
+
 app.use(express.json());
 const Compositions = mongoose.model('Compositions', new mongoose.Schema({
-  composition_id: Number,
-  items: Object
-
+  composition_id: { type: Number, required: true },
+  items: { type: Object, required: true },
+  userId: { type: ObjectId, required: true } // Adicione o campo userId para associar a composição ao usuário
 }), 'Compositions');
 
 
-//to save the excel as a composition in mongo when the doctor makes the upload of the excel
+// Rota para salvar a composição
 app.post('/savejson', (req, res) => {
   const json = req.body;
   console.log(json);
+  const userId = req.session.userId; // Exemplo usando sessão (verifique se o usuário está autenticado e a sessão está configurada corretamente)
+
   const newComposition = new Compositions({
     composition_id: json["items.0.0.items.0.value"],
-    items: json
-
+    items: json,
+    userId: userId // Associe o userId do usuário autenticado à composição
   });
+
   newComposition.save()
     .then(() => {
       console.log('Composition saved:', newComposition);
+      res.send('Composition saved successfully');
     })
     .catch(error => {
       console.log('Error: ', error);
-      res.send('An error occurred while saving JSON to database');
+      res.status(500).send('An error occurred while saving the composition');
     });
-})
+});
 
 
-//to get only one composition for the patient with the number that the doctor searches for
+// Rota para buscar uma composição específica
 app.get('/findjson/:id', (req, res) => {
-  const Id = req.params.id;
+  const compositionId = req.params.id;
+  const userId = req.session.userId; // Exemplo usando sessão (verifique se o usuário está autenticado e a sessão está configurada corretamente)
 
-  Compositions.findOne({ composition_id: Id })
-
+  Compositions.findOne({ composition_id: compositionId, userId: userId })
     .then((composition) => {
       if (composition) {
         const json = composition.items;
         console.log(json);
         res.send(json);
       } else {
-        console.log('Episode not found');
-        res.send('Episode not found');
+        console.log('Composition not found');
+        res.send('Composition not found');
       }
     })
     .catch(error => {
       console.log('Error: ', error);
-      res.send('An error occurred while fetching JSON');
+      res.status(500).send('An error occurred while fetching the composition');
     });
 });
 
-//to get all the compositions saved in our db
-app.get('/alljson', (req, res) => {
-  Compositions.find({})
+
+// Rota para buscar todas as composições de um usuário
+app.get('/usercompositions', (req, res) => {
+  const userId = req.session.userId; // Exemplo usando sessão (verifique se o usuário está autenticado e a sessão está configurada corretamente)
+
+  Compositions.find({ userId: userId })
     .then((compositions) => {
-      if (compositions.length > 0) {
-        console.log(compositions);
-        res.send(compositions);
-      } else {
-        console.log('No forms found');
-        res.send('No forms found');
-      }
+      console.log(compositions);
+      res.send(compositions);
     })
     .catch((error) => {
       console.log('Error: ', error);
-      res.send('An error occurred while fetching the forms');
+      res.status(500).send('An error occurred while fetching the compositions');
     });
 });
 
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: '3306',
-  user: "root",
-  password: "abriLyly17",
-  database: "projectAPI"
+// Rota para buscar todas as composições de todos os usuários (apenas para fins de demonstração)
+app.get('/allcompositions', (req, res) => {
+  Compositions.find({})
+    .then((compositions) => {
+      console.log(compositions);
+      res.send(compositions);
+    })
+    .catch((error) => {
+      console.log('Error: ', error);
+      res.status(500).send('An error occurred while fetching the compositions');
+    });
 });
 
-connection.connect((error) => {
-  if (error) {
-    console.error("Error connecting to MySQL database:", error);
-  } else {
-    console.log("Connected to MySQL database");
-  }
-});
 
-app.get("/stats1", (req, res) => {
-  const query1 = "SELECT `items.items.0.0.items.7.items.0.value.text`, COUNT(*) AS frequency FROM projectAPI.episodes GROUP BY `items.items.0.0.items.7.items.0.value.text`;"
-  connection.query(query1, [], (error, results) => {
-    if (error) {
-      console.error("Error executing MySQL query:", error);
-      res.status(500).send("An error occurred");
-      return;
-    }
-    res.json(results);
-  });
-});
-
-app.get("/stats2", (req, res) => {
-  const query2 = "SELECT MONTH(`items.items.0.0.items.1.value.date`) AS month, COUNT(*) as frequency FROM projectAPI.episodes GROUP BY MONTH(`items.items.0.0.items.1.value.date`);"
-  connection.query(query2, [], (error, results) => {
-    if (error) {
-      console.error("Error executing MySQL query:", error);
-      res.status(500).send("An error occurred");
-      return;
-    }
-    res.json(results);
-  });
-});
-
-app.get("/stats3", (req, res) => {
-  const query3 = "SELECT `items.items.0.0.items.2.value.text` AS options, COUNT(*) as frequency FROM projectAPI.episodes GROUP BY options;"
-  connection.query(query3, [], (error, results) => {
-    console.log("ESTOU LIGADO")
-    console.log(results)
-    if (error) {
-      console.error("Error executing MySQL query:", error);
-      res.status(500).send("An error occurred");
-      return;
-    }
-    res.json(results);
-  });
-});
 
 const PORT = 8080;
 
