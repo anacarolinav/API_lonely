@@ -45,15 +45,17 @@ const AllCompositions = () => {
         <div>
             <h1 style={{ color: 'white', fontSize: '45px', textAlign: 'center', padding: '5px', marginBottom: '18px' }}>Episodes</h1>
 
-            {Array.isArray(compositions) && compositions.map((composition, index) => (
-                <StyledButton
-                    key={index}
-                    style={{ border: '2px solid #ccc', borderRadius: '5px', padding: '20px', marginBottom: '10px' }}
-                    onClick={() => handleCompositionClick(composition)}
-                >
-                    Episode {index + 1}
-                </StyledButton>
-            ))}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridGap: '10px' }}>
+                {Array.isArray(compositions) && compositions.map((composition, index) => (
+                    <StyledButton
+                        key={index}
+                        style={{ border: '2px solid #ccc', borderRadius: '5px', padding: '20px', marginBottom: '10px' }}
+                        onClick={() => handleCompositionClick(composition)}
+                    >
+                        Episode {index + 1}
+                    </StyledButton>
+                ))}
+            </div>
 
             {newjdt && (
                 <div>
