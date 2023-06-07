@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const session = require('express-session');
 
 app.use(session({
-  secret: 'seu_segredo_aqui',
+  secret: 'password',
   resave: false,
   saveUninitialized: true
 }));
